@@ -1,0 +1,5 @@
+{
+  "name": "NexusLearn",
+  "description": "NexusLearn: An all-in-one AI-powered toolkit for students, featuring tools for summarizing, planning essays, generating quizzes, creating study plans, and more, all powered by Gemini.",
+  "requestFramePermissions": []
+}
