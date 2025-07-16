@@ -34,6 +34,7 @@ import TextSimplifier from './pages/TextSimplifier.tsx';
 import CriticalThinkingBooster from './pages/CriticalThinkingBooster.tsx';
 import ReportCardGenerator from './pages/ReportCardGenerator.tsx';
 import InteractiveQuizBuilder from './pages/InteractiveQuizBuilder.tsx';
+import { Analytics } from "@vercel/analytics/react";
 import DataStoryteller from './pages/DataStoryteller.tsx';
 
 const App: React.FC = () => {
@@ -75,6 +76,7 @@ const App: React.FC = () => {
                     <Route path="data-storyteller" element={<DataStoryteller />} />
                 </Route>
             </Routes>
+            <Analytics/>
         </HashRouter>
     );
 };
