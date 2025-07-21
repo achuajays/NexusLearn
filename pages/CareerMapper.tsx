@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -24,7 +25,12 @@ const CareerMapper: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {careerMap && (
-                <ResultDisplay title="Potential Career Paths" textToCopy={careerMap}>
+                <ResultDisplay
+                    title="Potential Career Paths"
+                    textToCopy={careerMap}
+                    toolId="career-mapper"
+                    resultData={careerMap}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{careerMap}</pre>
                 </ResultDisplay>
             )}

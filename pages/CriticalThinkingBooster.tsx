@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -33,7 +34,12 @@ const CriticalThinkingBooster: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {questions && (
-                <ResultDisplay title="Questions to Consider" textToCopy={questions}>
+                <ResultDisplay
+                    title="Questions to Consider"
+                    textToCopy={questions}
+                    toolId="critical-thinking-booster"
+                    resultData={questions}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{questions}</pre>
                 </ResultDisplay>
             )}

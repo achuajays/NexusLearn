@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -44,7 +45,12 @@ const PresentationGenerator: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Presentation on: ${topic}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Presentation on: ${topic}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="presentation-generator"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         {data.map((slide, index) => (
                             <div key={index} className="p-4 rounded-lg bg-slate-50 border border-slate-200">

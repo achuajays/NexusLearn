@@ -40,7 +40,12 @@ const CodeExplainer: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {explanation && (
-                <ResultDisplay title="Code Explanation" textToCopy={explanation}>
+                <ResultDisplay
+                    title="Code Explanation"
+                    textToCopy={explanation}
+                    toolId="code-explainer"
+                    resultData={explanation}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{explanation}</pre>
                 </ResultDisplay>
             )}

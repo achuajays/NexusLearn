@@ -37,7 +37,12 @@ const DoubtBot: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Answer" textToCopy={`${data.answer}\n\nFurther Reading: ${data.readingLink}`}>
+                <ResultDisplay
+                    title="Answer"
+                    textToCopy={`${data.answer}\n\nFurther Reading: ${data.readingLink}`}
+                    toolId="doubt-bot"
+                    resultData={data}
+                >
                     <p>{data.answer}</p>
                     {data.readingLink && (
                         <div className="mt-4">

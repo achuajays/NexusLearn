@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -38,7 +39,12 @@ const TimeEstimator: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Plan for: ${task}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Plan for: ${task}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="time-estimator"
+                    resultData={data}
+                >
                     <div className="space-y-4">
                         <div>
                             <h4 className="font-bold text-lg text-slate-700">Estimated Time</h4>

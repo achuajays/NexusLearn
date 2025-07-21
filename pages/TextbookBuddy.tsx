@@ -50,7 +50,12 @@ const TextbookBuddy: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Your Digest" textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title="Your Digest"
+                    textToCopy={formatResultForCopy()}
+                    toolId="textbook-buddy"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         <div>
                             <h4 className="font-bold text-lg text-slate-700">Summary</h4>

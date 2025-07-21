@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -49,7 +50,12 @@ const KeywordExtractor: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Extracted Notes Digest" textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title="Extracted Notes Digest"
+                    textToCopy={formatResultForCopy()}
+                    toolId="keyword-extractor"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         <div>
                             <h4 className="font-bold text-lg text-slate-700">Highlights</h4>

@@ -30,7 +30,12 @@ const SmartNotes: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {summary && (
-                <ResultDisplay title="Your Smart Summary" textToCopy={summary}>
+                <ResultDisplay
+                    title="Your Smart Summary"
+                    textToCopy={summary}
+                    toolId="smart-notes"
+                    resultData={summary}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{summary}</pre>
                 </ResultDisplay>
             )}

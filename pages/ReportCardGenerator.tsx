@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -33,7 +34,12 @@ const ReportCardGenerator: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {comment && (
-                <ResultDisplay title="Generated Report Card Comment" textToCopy={comment}>
+                <ResultDisplay
+                    title="Generated Report Card Comment"
+                    textToCopy={comment}
+                    toolId="report-card-generator"
+                    resultData={comment}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{comment}</pre>
                 </ResultDisplay>
             )}

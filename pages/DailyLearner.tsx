@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -24,7 +25,12 @@ const DailyLearner: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {lesson && (
-                <ResultDisplay title={`Today's Lesson: ${subject}`} textToCopy={lesson}>
+                <ResultDisplay
+                    title={`Today's Lesson: ${subject}`}
+                    textToCopy={lesson}
+                    toolId="daily-learner"
+                    resultData={lesson}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{lesson}</pre>
                 </ResultDisplay>
             )}

@@ -44,7 +44,12 @@ const CourseOutliner: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Curriculum for ${topic}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Curriculum for ${topic}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="course-outliner"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         {Object.entries(data).map(([week, tasks]) => (
                             <div key={week}>

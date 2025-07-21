@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -39,7 +40,12 @@ const AssignmentFormatter: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {formatted && (
-                <ResultDisplay title={`Formatted in ${style} Style`} textToCopy={formatted}>
+                <ResultDisplay
+                    title={`Formatted in ${style} Style`}
+                    textToCopy={formatted}
+                    toolId="assignment-formatter"
+                    resultData={formatted}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{formatted}</pre>
                 </ResultDisplay>
             )}

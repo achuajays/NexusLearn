@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -47,7 +48,12 @@ const ConceptCracker: React.FC = () => {
                             ))}
                         </nav>
                     </div>
-                    <ResultDisplay title={`${topic || 'Concept'} - ${activeTab}`} textToCopy={data[activeTab]}>
+                    <ResultDisplay
+                        title={`${topic || 'Concept'} - ${activeTab}`}
+                        textToCopy={data[activeTab]}
+                        toolId="concept-cracker"
+                        resultData={{ topic, style: activeTab, explanation: data[activeTab] }}
+                    >
                        <p>{data[activeTab]}</p>
                    </ResultDisplay>
                 </div>

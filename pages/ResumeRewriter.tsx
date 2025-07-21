@@ -39,7 +39,12 @@ const ResumeRewriter: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {rewritten && (
-                <ResultDisplay title={`Resume Rewritten for ${goal}`} textToCopy={rewritten}>
+                <ResultDisplay
+                    title={`Resume Rewritten for ${goal}`}
+                    textToCopy={rewritten}
+                    toolId="resume-rewriter"
+                    resultData={rewritten}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{rewritten}</pre>
                 </ResultDisplay>
             )}

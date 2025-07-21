@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -33,7 +34,12 @@ const DataStoryteller: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {story && (
-                <ResultDisplay title="The Story in Your Data" textToCopy={story}>
+                <ResultDisplay
+                    title="The Story in Your Data"
+                    textToCopy={story}
+                    toolId="data-storyteller"
+                    resultData={story}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{story}</pre>
                 </ResultDisplay>
             )}

@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -65,7 +66,12 @@ const DebateAssistant: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Debate on: ${motion}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Debate on: ${motion}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="debate-assistant"
+                    resultData={data}
+                >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Pro Column */}
                         <div className="space-y-4">

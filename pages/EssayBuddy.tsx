@@ -48,7 +48,12 @@ const EssayBuddy: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Essay Plan: ${topic}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Essay Plan: ${topic}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="essay-buddy"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         <div>
                             <h4 className="font-bold text-lg text-slate-700">Thesis Statement</h4>

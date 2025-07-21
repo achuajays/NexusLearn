@@ -44,7 +44,12 @@ const MnemonicMaker: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Your Memory Aids" textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title="Your Memory Aids"
+                    textToCopy={formatResultForCopy()}
+                    toolId="mnemonic-maker"
+                    resultData={data}
+                >
                     <div className="space-y-4">
                         {data.acronym && (
                             <details open><summary className="font-semibold text-lg cursor-pointer list-none group-hover:text-blue-600">Acronym</summary><p className="mt-2 pl-4">{data.acronym}</p></details>

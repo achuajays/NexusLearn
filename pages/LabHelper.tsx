@@ -50,7 +50,12 @@ const LabHelper: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title={`Report for: ${title}`} textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title={`Report for: ${title}`}
+                    textToCopy={formatResultForCopy()}
+                    toolId="lab-helper"
+                    resultData={data}
+                >
                     <div className="space-y-4">
                         <details className="group" open>
                             <summary className="font-semibold text-lg cursor-pointer list-none group-hover:text-blue-600">Purpose</summary>

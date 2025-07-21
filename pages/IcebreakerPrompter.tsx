@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -38,7 +39,12 @@ const IcebreakerPrompter: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {prompt && (
-                <ResultDisplay title={`Icebreakers for ${topic}`} textToCopy={prompt}>
+                <ResultDisplay
+                    title={`Icebreakers for ${topic}`}
+                    textToCopy={prompt}
+                    toolId="icebreaker-prompter"
+                    resultData={prompt}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{prompt}</pre>
                 </ResultDisplay>
             )}

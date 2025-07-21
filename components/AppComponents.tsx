@@ -1,8 +1,12 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import React, { useState, useContext } from 'react';
+import * as ReactRouterDOM from 'react-router-dom';
 import { Tool } from '../types.ts';
 import { MaterialIcon } from './Icons.tsx';
+import { ProjectContext } from '../contexts/ProjectContext.tsx';
+import { useProjects } from '../hooks/useProjects.ts';
+
 
 // --- Reusable UI Primitives ---
 
@@ -19,14 +23,27 @@ export const ErrorDisplay: React.FC<{ message: string }> = ({ message }) => (
     </div>
 );
 
-export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className, children, ...props }) => (
-    <button
-        className={`inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors ${className}`}
-        {...props}
-    >
-        {children}
-    </button>
-);
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: 'primary' | 'outline';
+}
+
+export const Button: React.FC<ButtonProps> = ({ className, children, variant = 'primary', ...props }) => {
+    const baseClasses = "inline-flex items-center justify-center px-6 py-3 border text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors";
+
+    const variantClasses = {
+        primary: 'border-transparent text-white bg-blue-600 hover:bg-blue-700',
+        outline: 'border-gray-300 text-gray-700 bg-white/50 hover:bg-white'
+    };
+    
+    return (
+        <button
+            className={`${baseClasses} ${variantClasses[variant]} ${className || ''}`}
+            {...props}
+        >
+            {children}
+        </button>
+    );
+};
 
 export const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = ({ className, ...props }) => (
     <textarea
@@ -54,7 +71,7 @@ export const Select: React.FC<React.SelectHTMLAttributes<HTMLSelectElement>> = (
 
 // --- Layout & Page Structure ---
 
-export const PageHeader: React.FC<{ title: string; description: string }> = ({ title, description }) => (
+export const PageHeader: React.FC<{ title: React.ReactNode; description: string }> = ({ title, description }) => (
     <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-800">{title}</h1>
         <p className="mt-2 text-lg text-gray-500">{description}</p>
@@ -62,7 +79,7 @@ export const PageHeader: React.FC<{ title: string; description: string }> = ({ t
 );
 
 export const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => (
-    <Link to={tool.path} className="group bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow flex items-center justify-between">
+    <ReactRouterDOM.Link to={tool.path} className="group bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow flex items-center justify-between">
         <div className="flex items-center">
             <MaterialIcon iconName={tool.icon} className="text-blue-500 text-3xl" />
             <div className="ml-4">
@@ -71,7 +88,7 @@ export const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => (
             </div>
         </div>
         <MaterialIcon iconName="chevron_right" className="text-gray-400 group-hover:text-blue-500 transition-colors" />
-    </Link>
+    </ReactRouterDOM.Link>
 );
 
 
@@ -93,17 +110,56 @@ export const CopyButton: React.FC<{ textToCopy: string }> = ({ textToCopy }) => 
     );
 };
 
-export const ResultDisplay: React.FC<{ title: string; children: React.ReactNode; textToCopy?: string }> = ({ title, children, textToCopy }) => (
-    <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <div className="flex justify-between items-start">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">{title}</h3>
-            {textToCopy && <CopyButton textToCopy={textToCopy} />}
+interface ResultDisplayProps {
+    title: string;
+    children: React.ReactNode;
+    textToCopy?: string;
+    toolId?: string;
+    resultData?: any;
+}
+
+export const ResultDisplay: React.FC<ResultDisplayProps> = ({ title, children, textToCopy, toolId, resultData }) => {
+    const { activeProject } = useContext(ProjectContext);
+    const { addArtifactToProject } = useProjects();
+    const [isSaved, setIsSaved] = useState(false);
+
+    const handleSaveToProject = () => {
+        if (activeProject && toolId && resultData) {
+            addArtifactToProject(activeProject.id, {
+                toolId: toolId,
+                toolTitle: title, // A reasonable approximation of the tool name for display
+                data: resultData
+            });
+            setIsSaved(true);
+            setTimeout(() => setIsSaved(false), 2500);
+        }
+    };
+
+    return (
+        <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div className="flex justify-between items-start gap-4">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">{title}</h3>
+                <div className="flex items-center space-x-2">
+                    {activeProject && toolId && resultData && (
+                        <Button
+                            onClick={handleSaveToProject}
+                            disabled={isSaved}
+                            className={`px-3 py-1 text-sm ${isSaved ? 'bg-green-600' : 'bg-blue-600 hover:bg-blue-700'}`}
+                        >
+                            <MaterialIcon iconName={isSaved ? 'check' : 'add'} className="mr-2 text-base" />
+                            {isSaved ? 'Saved!' : 'Save to Project'}
+                        </Button>
+                    )}
+                    {textToCopy && <CopyButton textToCopy={textToCopy} />}
+                </div>
+            </div>
+            <div className="prose prose-gray max-w-none text-gray-600">
+                {children}
+            </div>
         </div>
-        <div className="prose prose-gray max-w-none text-gray-600">
-            {children}
-        </div>
-    </div>
-);
+    );
+};
+
 
 export const Switch: React.FC<{ checked: boolean; onChange: (checked: boolean) => void; label: string }> = ({ checked, onChange, label }) => (
     <div className="flex items-center">

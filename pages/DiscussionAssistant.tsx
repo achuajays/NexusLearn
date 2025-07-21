@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -40,7 +41,12 @@ const DiscussionAssistant: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Your Discussion Starters" textToCopy={formatResultForCopy()}>
+                <ResultDisplay
+                    title="Your Discussion Starters"
+                    textToCopy={formatResultForCopy()}
+                    toolId="discussion-assistant"
+                    resultData={data}
+                >
                     <div className="space-y-6">
                         <div>
                             <h4 className="font-bold text-lg text-slate-700">Starter Reply</h4>

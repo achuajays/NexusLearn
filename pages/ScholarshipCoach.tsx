@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -39,7 +40,12 @@ const ScholarshipCoach: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {improvedEssay && (
-                <ResultDisplay title="Your Improved Essay" textToCopy={improvedEssay}>
+                <ResultDisplay
+                    title="Your Improved Essay"
+                    textToCopy={improvedEssay}
+                    toolId="scholarship-coach"
+                    resultData={improvedEssay}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{improvedEssay}</pre>
                 </ResultDisplay>
             )}

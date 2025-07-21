@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { useApi } from '../hooks/useApi.ts';
 import { usePersistentState } from '../hooks/usePersistentState.ts';
@@ -38,7 +39,12 @@ Please provide the explanation now.`;
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {explanation && (
-                <ResultDisplay title={`Explanation for "${concept}" (${style} Style)`} textToCopy={explanation}>
+                <ResultDisplay
+                    title={`Explanation for "${concept}" (${style} Style)`}
+                    textToCopy={explanation}
+                    toolId="learning-converter"
+                    resultData={explanation}
+                >
                     <pre className="whitespace-pre-wrap font-sans">{explanation}</pre>
                 </ResultDisplay>
             )}

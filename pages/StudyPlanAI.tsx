@@ -43,7 +43,12 @@ const StudyPlanAI: React.FC = () => {
             {isLoading && <Loader />}
             {error && <ErrorDisplay message={error} />}
             {data && (
-                <ResultDisplay title="Your Personalized Study Plan" textToCopy={data}>
+                <ResultDisplay
+                    title="Your Personalized Study Plan"
+                    textToCopy={data}
+                    toolId="study-plan-ai"
+                    resultData={data}
+                >
                      <pre className="whitespace-pre-wrap font-sans">{data}</pre>
                 </ResultDisplay>
             )}
